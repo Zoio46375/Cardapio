@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOkRsxsV66vtt3nlnls2XLEt-pO4d1TSk&libraries=places&language=pt-BR"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardápio Geraldo's Potato</title>
+
+  <!-- 🎨 Fonte Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 📄 Estilo principal -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* 🔧 Ajuste visual das sugestões de endereço */
+    #sugestoes {
+      background: #2a153b;
+      color: white;
+      border: 1px solid #7b1fa2;
+      border-radius: 10px;
+      list-style: none;
+      padding: 0;
+      margin-top: 5px;
+      max-height: 160px;
+      overflow-y: auto;
+      display: none;
+      text-align: left;
+      position: relative;
+      z-index: 9999;
+    }
+
+    #sugestoes li {
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #sugestoes li:hover {
+      background: #7b1fa2;
+    }
+
+    #resultadoEntrega {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🍌 Fundo decorativo -->
+  <div class="fundo-decorativo">
+    <img src="img/banana.png" alt="">
+    <img src="img/morango.png" alt="">
+    <img src="img/granola.png" alt="">
+    <img src="img/leite-po.png" alt="">
+  </div>
+
+  <!-- 🔝 Cabeçalho -->
+  <header class="brand-header">
+    <div class="brand-wrap">
+      <img class="brand-logo" src="img/geraldo-logo.png" alt="Geraldo's Potato" />
+      <div class="brand-titles">
+        <h1 class="brand-name"></h1>
+        <p class="brand-tag">A Melhor Batata Recheada de Toda a Região.</p>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#Batatas-Recheadas">Batatas Recheadas</a></li>
+        <li><a href="#Batatas-Recheadas-Supremas">Batatas Recheadas Supremas</a></li>
+        <li><a href="#Geraldo-Combo">Geraldo's Combo</a></li>
+        <li><a href="#bebidas">Bebidas</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Batatas Recheadas -->
+  <section id="Batatas-Recheadas">
+    <h2>Batatas Recheadas</h2>
+
+    <div class="grid-produtos">
+      <div class="item" data-name="Batata Recheada de Bacon" data-price="17.99" data-desc="Deliciosa batata recheada com um bacon bem crocante e um delicioso molho de dois queijos a base de requeijão cremoso ,mussarela e orégano.
+Finalizada com um toque de alho frito, uma delícia!
+Aprox 500g." data-img="img/batata-bacon.png">
+
+        <img src="img/batata-bacon.png" alt="Batata Recheada de Bacon" />
+        <h3>Batata Recheada de Bacon</h3>
+        <span>R$ 17,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+
+      <div class="item" data-name="Batata Recheada de Frango Cremoso Com Mussarela" data-price="17.99" data-desc="Batata assada e temperada muito macia, Frango desfiado, feito com um creme a base de leite, margarina, creme de leite e molho de tomate, muito bem temperado e muito cremoso!!!!
+Aprox 500g.
+
+E bom de mais essa batata.." data-img="img/batata-frango-cremoso.png">
+        <img src="img/batata-frango-cremoso.png" alt="Batata Recheada de Frango Cremoso Com Mussarela" />
+        <h3>Batata Recheada de Frango Cremoso Com Mussarela</h3>
+        <span>R$ 17,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Brócolis Com Mussarela" data-price="16.99" data-desc="Deliciosa batata recheada com um brócolis muito bem temperado ao molho 2 queijos a base de creme de leite, requeijão e orégano. A batata vai amassada com um pouco de manteiga para dar um sabor a mais e a finalização é com mussarela e alho frito por cima!!!
+Aprox 500g." data-img="img/batata-brocolis.png">
+        <img src="img/batata-brocolis.png" alt="Batata Recheada de Brócolis Com Mussarela" />
+        <h3>Batata Recheada de Brócolis Com Mussarela</h3>
+        <span>R$ 16,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Strogonoff de Frango" data-price="17.99" data-desc="Strogonoff da casa feito com creme de leite, molho de tomate, temperos especiais, File de frango fatiado e temperado, a batata vai bem cozida um pouco amassada e temperada com manteiga para dar aquele gostinho e a finalização é com muita muçarela!!!!
+Aprox 500g.
+Não acompanha Batata Palha!!!
+
+Peso aproximado: 550g
+
+
+A Queridinha da galera..." data-img="img/batata-strog-frango.png">
+        <img src="img/batata-strog-frango.png" alt="Batata Recheada de Strogonoff de Frango" />
+        <h3>Batata Recheada de Strogonoff de Frango</h3>
+        <span>R$ 17,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Strogonoff de Carne" data-price="17.99" data-desc="Strogonoff da casa feito com creme de leite, molho de tomate, temperos especiais, carne bovina cortado em tiras a batata vai bem cozida e um pouco amassada e temperada com margarina para dar aquele gostinho a finalização é com mussarela.
+
+Não acompanha batata palha!!!
+
+A Queridinha da galera..." data-img="img/batata-strog-carne.png">
+        <img src="img/batata-strog-carne.png" alt="Batata Recheada de Strogonoff de Carne" />
+        <h3>Batata Recheada de Strogonoff de Carne</h3>
+        <span>R$ 17,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Bolonhesa" data-price="18.99" data-desc="Deliciosa batata recheada ao molho bolonhesa bem temperada com mussarela.
+Batata amassada com manteiga, carne moída com molho de tomate e mussarela.
+Aproximadamente 500g." data-img="img/batata-bolonhesa.png">
+        <img src="img/batata-bolonhesa.png" alt="Batata Recheada de Bolonhesa" />
+        <h3>Batata Recheada de Bolonhesa</h3>
+        <span>R$ 18,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- Batatas Recheadas Supremas -->
+  <section id="Batatas-Recheadas-Supremas">
+    <h2>Batatas Recheadas Supremas</h2>
+
+    <div class="grid-produtos">
+      <div class="item" data-name="Batata Recheada De Brócolis Com Mussarela, Bacon e Borda de Catupiry
+
+" data-price="30.99" data-desc="Batata assada e amassada temperada com margarina muito macia, recheado com brócolis cozido feito com molho branco da casa a base de creme de leite, requeijão cremoso e orégano, bacon picadinho, muito mussarela por cima e uma generosa borda de Catupiry Original!!!!
+
+
+Amantes de brócolis...
+
+Aproximadamente 580g" data-img="img/batata-sup-broc.png">
+
+        <img src="img/batata-sup-broc.png" alt="Batata Recheada De Brócolis Com Mussarela, Bacon e Borda de Catupiry
+
+" />
+        <h3>Batata Recheada De Brócolis Com Mussarela, Bacon e Borda de Catupiry
+
+        </h3>
+        <span>R$ 30,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Frango Cremoso com Borda de Catupiry Original e Bacon
+
+" data-price="31.99" data-desc="Frango Cremoso da casa feito com creme de leite, molho de tomate, temperos especiais, File de frango desfiado e temperado, a batata vai bem cozida um pouco amassada e temperada com manteiga para dar aquele gostinho, a finalização é com muita muçarela, um delicioso bacon crocante e uma generosa borda de Catupiry Original!!!!
+
+Peso aproximado: 580g
+
+
+A Queridinha da galera..." data-img="img/batata-sup-frang-crem.png">
+
+        <img src="img/batata-sup-frang-crem.png" alt="Batata Recheada de Frango Cremoso com Borda de Catupiry Original e Bacon
+" />
+        <h3>Batata Recheada de Frango Cremoso com Borda de Catupiry Original e Bacon
+
+        </h3>
+        <span>R$ 31,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Batata Recheada de Strogonoff de Carne com Borda De Catupiry Original e Bacon
+
+" data-price="33.99" data-desc="Strogonoff da casa feito com creme de leite, molho de tomate, temperos especiais, carne bovina cortado em tiras a batata vai bem cozida e um pouco amassada e temperada com margarina para dar aquele gostinho a finalização é com muçarela, bacon e uma generosa borda de Catupiry Original!!!
+
+Não acompanha Batata palha
+
+A Queridinha da galera...
+
+Aproximadamente 580g
+" data-img="img/batata-sup-strog-carne.png">
+
+        <img src="img/batata-sup-strog-carne.png" alt="Batata Recheada de Strogonoff de Carne com Borda De Catupiry Original e Bacon
+" />
+        <h3>Batata Recheada de Strogonoff de Carne com Borda De Catupiry Original e Bacon
+        </h3>
+        <span>R$ 33,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+
+    </div>
+  </section>
+  <!-- Geraldo's Combo -->
+  <section id="Geraldo-Combo">
+    <h2>Geraldo's Combo</h2>
+
+    <div class="grid-produtos">
+      <div class="item" data-name="Combo Individual (Batata De Strogonoff De Frango + Coca 350ml + Batata Palha)
+
+" data-price="24.50" data-desc="Este Combo Individual do Geraldo's Combo é exatamente o que você precisa para uma refeição completa. Composto por uma suculenta batata recheada com um irresistível strogonoff de frango, preparado ao creme de leite ricamente temperado, a batata é delicadamente temperada com manteiga, proporcionando um sabor único e inesquecível. O prato, com aproximadamente 500g, é acompanhado de uma crocante batata palha, que adiciona uma textura especial ao conjunto. Para completar, oferecemos a refrescante Coca-Cola Original de 350ml ou a versão sem açúcar, para aqueles que preferem uma opção mais saudável. Um prato cheio de sabor que garante a sua satisfação!
+Serve 1 pessoa
+(500g)
+" data-img="img/batata-individual.png">
+
+        <img src="img/batata-individual.png" alt="Combo Individual (Batata De Strogonoff De Frango + Coca 350ml + Batata Palha)
+" />
+        <h3>Combo Individual (Batata De Strogonoff De Frango + Coca 350ml + Batata Palha)
+        </h3>
+        <span>R$ 24,50</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Combo Baratíssimo: (2 Batatas de Frango Cremoso + Refrigerante 2l)
+
+" data-price="42.99" data-desc="São 2 Batatas de frango cremoso
+Acompanha Refrigerante 2l
+batata assada e temperada muito macia, Frango desfiado, feito com um creme a base de leite, margarina, creme de leite e molho de tomate, muito bem temperado e muito cremoso!!!!
+
+
+Batatas pesam em média: 500g
+" data-img="img/batata-barata.png">
+
+        <img src="img/batata-barata.png" alt="Combo Baratíssimo: (2 Batatas de Frango Cremoso + Refrigerante 2l)
+" />
+        <h3>Combo Baratíssimo: (2 Batatas de Frango Cremoso + Refrigerante 2l)
+        </h3>
+        <span>R$ 42,99</span>
+
+        <div class="opcoes-produto">
+          <div class="extra">
+            <span>Batata Palha (30g)</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$1,50</span>
+            <input type="hidden" value="Batata Palha" data-extra="1.5">
+          </div>
+
+          <div class="extra">
+            <span>Catupiry</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$7,00</span>
+            <input type="hidden" value="Catupiry" data-extra="7">
+          </div>
+
+          <div class="extra">
+            <span>Bacon</span>
+            <div class="qtd-control">
+              <button class="menos">–</button>
+              <span class="qtd">0</span>
+              <button class="mais">+</button>
+            </div>
+            <span class="preco">+R$9,00</span>
+            <input type="hidden" value="Bacon" data-extra="9">
+          </div>
+        </div>
+
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Bebidas -->
+  <section id="bebidas">
+    <h2>Bebidas</h2>
+
+    <div class="grid-produtos">
+      <div class="item" data-name="Coca Cola Sem Açúcar 350ml" data-price="6.50" data-desc=""
+        data-img="img/coca-350-zero.png">
+
+        <img src="img/coca-350-zero.png" alt="Coca Cola Sem Açúcar 350ml" />
+        <h3>Coca Cola Sem Açúcar 350ml</h3>
+        <span>R$ 6,50</span>
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Coca Cola 350ml" data-price="6.50" data-desc="" data-img="img/coca-350.png">
+
+        <img src="img/coca-350.png" alt="Coca Cola 350ml" />
+        <h3>Coca Cola 350ml</h3>
+        <span>R$ 6,50</span>
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+      <div class="item" data-name="Refrigerante Guaraná Tiss 2 Litros" data-price="10.00" data-desc=""
+        data-img="img/tiss.png">
+
+        <img src="img/tiss.png" alt="Refrigerante Guaraná Tiss 2 Litros" />
+        <h3>Refrigerante Guaraná Tiss 2 Litros</h3>
+        <span>R$ 10,00</span>
+        <button class="ver-detalhes">Ver detalhes</button>
+      </div>
+
+
+
+    </div>
+  </section>
+  <!-- 🛍️ Sacola -->
+  <div id="sacola" class="sacola">
+    <h3>🛒 Sua sacola:</h3>
+    <ul id="lista-sacola"></ul>
+    <p id="total-sacola"><strong>Total:</strong> R$ 0,00</p>
+    <button id="btn-revisar" class="btn-primario">🔎 Revisar pedido</button>
+  </div>
+
+  <!-- 🔎 Modal Produto -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">✕</button>
+      <img id="modalImg" src="" alt="" />
+      <h3 id="modalTitle">Título</h3>
+      <p id="modalDesc">Descrição</p>
+
+      <!-- 🧩 Adicionais -->
+      <div id="modalOpcoes" class="modal-opcoes"></div>
+
+      <!-- 💰 Preço atualizado -->
+      <p class="modal-preco">Preço total: <span id="modalPrice">R$ 0,00</span></p>
+
+      <!-- ✍️ Observação -->
+      <label class="modal-label">Observação (opcional)</label>
+      <textarea id="modalObs" placeholder="Ex.: sem cebola, pouco queijo"></textarea>
+
+      <div class="modal-actions">
+        <button id="modalAdd" class="btn-primario">🛍️ Adicionar à sacola</button>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- 🔎 Modal Revisão -->
+<div id="revisao" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" id="revisaoClose">✕</button>
+
+    <h3>Revisar pedido</h3>
+    <ul id="revisaoLista" class="revisao-lista"></ul>
+
+   <!-- 🚚 Opções de entrega -->
+<div class="entrega">
+  <p style="margin-bottom: 8px;"><strong>Opção de entrega:</strong></p>
+
+  <!-- 🔁 Ordem invertida -->
+  <label class="toggle-btn">
+    <input type="radio" name="tipoEntrega" value="retirada">
+    Retirada no local
+  </label>
+
+  <label class="toggle-btn">
+    <input type="radio" name="tipoEntrega" value="entrega" checked>
+    Entrega
+  </label>
+
+  <!-- Campo de endereço (só aparece se for entrega) -->
+  <div id="campoEndereco" style="margin-top: 10px;">
+    <label for="endereco">Endereço</label>
+    <input id="endereco" type="text" placeholder="Rua, nº, bairro" autocomplete="off" />
+    <ul id="sugestoes"></ul>
+    <button id="btnCalcularEntrega" class="btn-primario" type="button" onclick="calcularEntrega()">
+      🚗 Calcular entrega
+    </button>
+    <div id="resultadoEntrega"></div>
+  </div>
+
+  <!-- Endereço da loja (só aparece se for retirada) -->
+  <div id="infoRetirada" style="display:none; margin-top: 10px; color: #ccc;">
+    Endereço para retirada: <strong>Rua José Augusto de Paula, 291 - Jaraguá</strong>
+  </div>
+
+  <label for="taxa" style="display:none;">Taxa de entrega (R$)</label>
+  <input id="taxa" type="number" step="0.01" min="0" value="0" readonly style="display:none;" />
+</div>
+
+    
+
+    <!-- 🧾 Totais -->
+    <p class="totais">
+      Subtotal: <span id="revSubtotal">R$ 0,00</span><br />
+      Entrega: <span id="revTaxa">R$ 0,00</span><br />
+      <strong>Total: <span id="revTotal">R$ 0,00</span></strong>
+    </p>
+
+    <!-- ✅ Confirmar -->
+    <div class="modal-actions">
+      <button id="revisaoConfirmar" class="btn-whats">✅ Confirmar e enviar no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+    <!-- 💳 Formas de pagamento -->
+    <div class="pagamento">
+      <label>Forma de pagamento</label>
+
+      <div class="opcoes-pagamento">
+        <label><input type="radio" name="pagamento" value="Cartão" checked> Débito / Crédito</label><br>
+        <label><input type="radio" name="pagamento" value="Pix"> Pix</label><br>
+        <label><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
+      </div>
+
+      <!-- 💵 Pop-up de troco -->
+      <div id="popupTroco" class="popup-troco" style="display:none;">
+        <div class="popup-content">
+          <p>Informe o valor que possui em dinheiro:</p>
+          <input type="number" id="valorTroco" placeholder="Ex: 30.00" step="0.01" min="0" />
+          <button id="confirmarTroco" class="btn-primario">Confirmar</button>
+        </div>
+      </div>
+
+      <p id="resumoTroco" style="display:none; margin-top:5px; color:#ccc; font-size:14px;"></p>
+    </div>
+
+    <p class="totais">
+      Subtotal: <span id="revSubtotal">R$ 0,00</span><br />
+      Entrega: <span id="revTaxa">R$ 0,00</span><br />
+      <strong>Total: <span id="revTotal">R$ 0,00</span></strong>
+    </p>
+
+    
+  </div>
+</div>
+
+
+  <!-- 🛒 Botão flutuante -->
+  <button id="btn-flutuante" class="btn-flutuante hidden">
+    🛒 <span id="count-itens">0</span> itens — <span id="valor-itens">R$ 0,00</span>
+  </button>
+
+
+  <!-- 🚗 Script de entrega + autocomplete -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImQ2MTRjNGVjYTI5MjQwNGI4OTU4NWQ1M2U4YjM3MDA4IiwiaCI6Im11cm11cjY0In0=";
+      const loja = { lat: -22.99767, lon: -45.54501 }; // Rua José Augusto de Paula, 291 - Jardim Jaraguá, Taubaté
+
+      const enderecoInput = document.getElementById("endereco");
+      const lista = document.getElementById("sugestoes");
+
+      /* 🔎 Autocomplete de endereços (OpenStreetMap) */
+      let timeout = null;
+      enderecoInput.addEventListener("input", () => {
+        const texto = enderecoInput.value.trim();
+        if (texto.length < 3) {
+          lista.style.display = "none";
+          lista.style.pointerEvents = "none";
+          return;
+        }
+
+        clearTimeout(timeout);
+        timeout = setTimeout(async () => {
+          try {
+            let busca = texto;
+            if (!/(taubate|tremembe)/i.test(texto)) {
+              busca += ', Taubaté, SP, Tremembé, SP';
+            }
+
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(busca)}&countrycodes=br&addressdetails=1&limit=5`;
+            const res = await fetch(url, { headers: { "User-Agent": "acai-se" } });
+            const data = await res.json();
+
+            lista.innerHTML = "";
+            if (!data.length) {
+              lista.style.display = "none";
+              lista.style.pointerEvents = "none";
+              return;
+            }
+
+            data.forEach(item => {
+              const li = document.createElement("li");
+              li.textContent = item.display_name;
+              li.addEventListener("click", () => {
+                enderecoInput.value = item.display_name;
+                lista.style.display = "none";
+                lista.style.pointerEvents = "none";
+              });
+              lista.appendChild(li);
+            });
+
+            lista.style.display = "block";
+            lista.style.pointerEvents = "auto";
+          } catch (e) { console.error(e); }
+        }, 400);
+      });
+
+      document.addEventListener("click", e => {
+        if (!lista.contains(e.target) && e.target !== enderecoInput) {
+          lista.style.display = "none";
+          lista.style.pointerEvents = "none";
+        }
+      });});
+
+      /* 🚗 Cálculo da entrega via Google Maps API */
+      async function calcularEntrega() {
+  const resultadoDiv = document.getElementById("resultadoEntrega");
+  const taxaInput = document.getElementById("taxa");
+  const endereco = document.getElementById("endereco").value.trim();
+
+  if (!endereco) {
+    resultadoDiv.innerHTML = "❗ Digite um endereço válido.";
+    return;
+  }
+
+  resultadoDiv.innerHTML = "⏳ Calculando...";
+
+  try {
+    const service = new google.maps.DistanceMatrixService();
+
+    const origem = "Rua José Augusto de Paula, 291, Jardim Jaraguá, Taubaté - SP";
+
+    service.getDistanceMatrix(
+      {
+        origins: [origem],
+        destinations: [endereco],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        language: "pt-BR",
+        region: "BR",
+      },
+      (response, status) => {
+        if (status !== "OK") {
+          resultadoDiv.innerHTML = "❌ Erro ao calcular rota.";
+          console.error("Erro na Distance Matrix:", status);
+          return;
+        }
+
+        const elemento = response.rows[0].elements[0];
+        if (elemento.status !== "OK") {
+          resultadoDiv.innerHTML = "❌ Endereço não encontrado.";
+          return;
+        }
+
+        const distancia_metros = elemento.distance.value;
+        const distancia_km = distancia_metros / 1000;
+        const distancia_formatada = distancia_km.toFixed(2);
+        const distanciaKmArredondada = Math.ceil(distancia_km);
+
+        // Regras de taxa (ajuste como quiser)
+        let taxa = 0;
+        if (distanciaKmArredondada <= 2) {
+          taxa = 4;
+        } else if (distanciaKmArredondada <= 4) {
+          taxa = 6;
+        } else {
+          taxa = 8 + (distanciaKmArredondada - 4) * 1.5;
+        }
+
+        // Exibe resultado
+        resultadoDiv.innerHTML = `
+          🏁 Distância: <b>${distancia_formatada} km</b><br>
+          💰 Taxa de entrega: <b>R$ ${taxa.toFixed(2)}</b>
+        `;
+
+        taxaInput.value = taxa.toFixed(2);
+        document.getElementById("revTaxa").innerText = `R$ ${taxa.toFixed(2)}`;
+
+        const subtotalText = document
+          .getElementById("revSubtotal")
+          .innerText.replace("R$", "")
+          .replace(",", ".")
+          .trim();
+        const subtotal = parseFloat(subtotalText) || 0;
+        const total = subtotal + taxa;
+
+        document.getElementById("revTotal").innerText = `R$ ${total
+          .toFixed(2)
+          .replace(".", ",")}`;
+
+        // Estimativa de tempo
+        const tempoEntregaEl = document.getElementById("tempo-entrega");
+        let tempoEstimado = "";
+        if (distancia_km <= 3) tempoEstimado = "20 – 30 min";
+        else if (distancia_km <= 5) tempoEstimado = "30 – 40 min";
+        else tempoEstimado = "40 – 50 min";
+
+        tempoEntregaEl.textContent = `🕒 Entrega estimada: ${tempoEstimado}`;
+      }
+    );
+  } catch (erro) {
+    console.error("Erro:", erro);
+    resultadoDiv.innerHTML = "⚠️ Erro ao calcular entrega. Tente novamente.";
+  }
+}
+
+
+  </script>
+  <!-- 📜 Script principal -->
+
+
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("btnModerador");
+        if (!btn) return console.error("🚫 Botão moderador não encontrado.");
+
+        const SENHA = "batata2025";
+        let pausados = JSON.parse(localStorage.getItem("itensPausados") || "[]");
+
+        // Aplica visuais pausados salvos
+        pausados.forEach(nome => {
+          const it = document.querySelector(`[data-name="${nome}"]`);
+          if (it) it.classList.add("pausado");
+        });
+
+        // CSS essencial
+        const css = `
+    .item { position:relative; }
+    .item.pausado{opacity:.4;}
+    .item.pausado::after{
+      content:"⏸️ Indisponível";
+      position:absolute;inset:0;display:flex;
+      align-items:center;justify-content:center;
+      background:rgba(0,0,0,.6);color:#fff;
+      font-weight:700;border-radius:16px;
+      pointer-events:none;
+    }
+    .btn-pausar{
+      display:none;position:absolute;top:8px;right:8px;
+      background:#ffdc73;border:none;border-radius:10px;
+      padding:6px 10px;font-weight:700;cursor:pointer;z-index:10;
+    }
+    body.modoModerador .btn-pausar{display:block;}
+  `;
+        const s = document.createElement("style");
+        s.textContent = css;
+        document.head.appendChild(s);
+
+        // Função para criar os botões ⏸️
+        function prepararCards() {
+          document.querySelectorAll(".item").forEach(item => {
+            const nome = item.dataset.name;
+            if (!item.querySelector(".btn-pausar")) {
+              const b = document.createElement("button");
+              b.className = "btn-pausar";
+              b.textContent = item.classList.contains("pausado") ? "▶️ Ativar" : "⏸️ Pausar";
+              b.onclick = (ev) => {
+                ev.stopPropagation();
+                const esta = item.classList.toggle("pausado");
+                b.textContent = esta ? "▶️ Ativar" : "⏸️ Pausar";
+                if (esta) pausados.push(nome);
+                else pausados = pausados.filter(p => p !== nome);
+                localStorage.setItem("itensPausados", JSON.stringify(pausados));
+              };
+              item.appendChild(b);
+            }
+          });
+        }
+
+        btn.addEventListener("click", () => {
+          const senha = prompt("Digite a senha do modo moderador:");
+          if (senha !== SENHA) return alert("❌ Senha incorreta!");
+          document.body.classList.toggle("modoModerador");
+          const on = document.body.classList.contains("modoModerador");
+          alert(on ? "✅ Modo moderador ATIVADO" : "⏹️ Modo moderador DESATIVADO");
+          prepararCards();
+        });
+      });
+
+
+  </script>
+  <!-- ⚙️ Painel de Gerenciamento de Adicionais -->
+  <div id="painelAdicionais" class="modal" aria-hidden="true">
+    <div class="modal-content" style="max-width: 400px;">
+      <button class="modal-close" onclick="fecharPainelAdicionais()">✕</button>
+      <h3>Gerenciar Adicionais</h3>
+      <ul id="listaAdicionais" style="list-style:none; padding:0;"></ul>
+    </div>
+  </div>
+
+  <footer class="area-moderador">
+    <button id="btnModerador" class="btn-primario">🔐 Modo Moderador</button>
+    <button id="btnGerenciarAdicionais" class="btn-primario" style="display:none;">
+      ⚙️ Gerenciar Adicionais
+    </button>
+  </footer>
+
+
+  <!-- 🔐 Script do moderador e adicionais -->
+  <link rel="stylesheet" href="style.css">
+
+
+
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btnFlutuante = document.getElementById("btn-flutuante");
+        const btnModerador = document.getElementById("btnModerador");
+        const sacola = document.getElementById("sacola");
+        const revisao = document.getElementById("revisao");
+        const modal = document.getElementById("modal");
+
+        // Função para esconder/mostrar botões
+        function atualizarVisibilidade() {
+          const algumAberto =
+            sacola.classList.contains("aberta") ||
+            revisao.getAttribute("aria-hidden") === "false" ||
+            modal.getAttribute("aria-hidden") === "false";
+
+          if (algumAberto) {
+            btnFlutuante.style.display = "none";
+            btnModerador.style.display = "none";
+          } else {
+            btnFlutuante.style.display = "flex";
+            btnModerador.style.display = "block";
+          }
+        }
+
+        // Quando abrir ou fechar a sacola
+        const btnRevisar = document.getElementById("btn-revisar");
+        const revisaoClose = document.getElementById("revisaoClose");
+        const modalClose = document.getElementById("modalClose");
+
+        if (btnRevisar) btnRevisar.addEventListener("click", atualizarVisibilidade);
+        if (revisaoClose) revisaoClose.addEventListener("click", () => {
+          setTimeout(atualizarVisibilidade, 300);
+        });
+        if (modalClose) modalClose.addEventListener("click", () => {
+          setTimeout(atualizarVisibilidade, 300);
+        });
+
+        // Monitora mudanças gerais (em caso de alterações via JS)
+        const observer = new MutationObserver(atualizarVisibilidade);
+        observer.observe(document.body, { attributes: true, subtree: true });
+      });
+
+
+
+  </script>
+  <!-- 🛒 Novo botão flutuante -->
+  <button id="btnCarrinhoNovo" class="btn-carrinho-novo hidden">
+    🛒 <span id="novoCount">0</span> itens — <span id="novoTotal">R$ 0,00</span>
+  </button>
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>

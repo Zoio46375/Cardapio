@@ -664,34 +664,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // (UNIFICADO: Lógica de Pagamento/Troco)
-  document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
-    radio.addEventListener("change", () => {
-      if (radio.value === "Dinheiro" && radio.checked) {
-        popupTroco.style.display = "block";
-      } else {
-        popupTroco.style.display = "none";
-        resumoTroco.style.display = "none";
-        resumoTroco.textContent = ""; // Limpa o valor
-      }
-    });
-  });
+document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const valorInput = document.getElementById("valorTroco");
 
-  // Confirmar valor do troco
-  btnConfirmarTroco.addEventListener("click", () => {
-    const valor = parseFloat(document.getElementById("valorTroco").value);
-    const totalPedido = parseFloat(revTotal.textContent.replace("R$", "").replace(",", ".").trim());
-
-    if (isNaN(valor) || valor <= 0) {
-        return alert("Por favor, insira um valor válido.");
+    if (radio.value === "Dinheiro" && radio.checked) {
+      popupTroco.style.display = "block";
+      popupTroco.setAttribute("aria-hidden", "false"); // <-- Adicionado
+      valorInput.focus(); // <-- Adicionado (para focar automático)
+    } else {
+      popupTroco.style.display = "none";
+      popupTroco.setAttribute("aria-hidden", "true"); // <-- Adicionado
+      resumoTroco.style.display = "none";
+      resumoTroco.textContent = ""; // Limpa o valor
     }
-    if (valor < totalPedido) {
-        return alert("O valor para troco deve ser maior ou igual ao total do pedido.");
-    }
-    
-    resumoTroco.textContent = `Troco para R$ ${valor.toFixed(2).replace('.', ',')}`;
-    resumoTroco.style.display = "block";
-    popupTroco.style.display = "none";
   });
+});
+
+// Confirmar valor do troco
+btnConfirmarTroco.addEventListener("click", () => {
+  const valorInput = document.getElementById("valorTroco"); // <-- Pega o input
+  const valor = parseFloat(valorInput.value);
+  const totalPedido = parseFloat(revTotal.textContent.replace("R$", "").replace(",", ".").trim());
+
+  if (isNaN(valor) || valor <= 0) {
+      return alert("Por favor, insira um valor válido.");
+  }
+  if (valor < totalPedido) {
+      return alert("O valor para troco deve ser maior ou igual ao total do pedido.");
+  }
+
+  resumoTroco.textContent = `Troco para R$ ${valor.toFixed(2).replace('.', ',')}`;
+  resumoTroco.style.display = "block";
+
+  valorInput.blur(); // <-- CORREÇÃO: Tira o foco do input
+  popupTroco.style.display = "none";
+  popupTroco.setAttribute("aria-hidden", "true"); // <-- CORREÇÃO: Atualiza o aria
+});
 
   // Atualiza botão do zap se digitar endereço
   inputEndereco.addEventListener("input", atualizarBotaoWhatsApp);

@@ -1388,7 +1388,7 @@ body.modoModerador #btnGerenciarAdicionais {
 }
 /* 💵 Pop-up de troco (centralizado dentro do modal, não na tela toda) */
 #popupTroco {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

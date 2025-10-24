@@ -1426,3 +1426,65 @@ body.modoModerador #btnGerenciarAdicionais {
   margin-top: 12px;
   width: 100%;
 }
+/* ==============================================
+   CORREÇÃO: Navbar v2 (Desktop Centralizado / Mobile à Esquerda)
+   ============================================== */
+
+/* 1. COMPORTAMENTO PADRÃO (DESKTOP) */
+.brand-header nav {
+  justify-content: center !important;
+}
+
+.brand-header nav ul {
+  /* Centraliza os itens no PC */
+  justify-content: center !important; 
+
+  /* Desliga o scroll no PC */
+  overflow-x: hidden !important; 
+
+  /* Padding padrão */
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* ==============================================
+   CORREÇÃO: Navbar v2 (Desktop Centralizado / Mobile à Esquerda)
+   ============================================== */
+
+/* 1. COMPORTAMENTO PADRÃO (DESKTOP) */
+.brand-header nav {
+  justify-content: center !important;
+}
+
+.brand-header nav ul {
+  /* Centraliza os itens no PC */
+  justify-content: center !important; 
+
+  /* Desliga o scroll no PC */
+  overflow-x: hidden !important; 
+
+  /* Padding padrão */
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* 2. COMPORTAMENTO QUANDO A TELA É ESTREITA (CELULAR) */
+/* Se a tela for 768px ou menor... */
+@media (max-width: 768px) {
+  .brand-header nav {
+    /* Alinha o container <nav> à esquerda no celular */
+    justify-content: flex-start !important;
+  }
+
+  .brand-header nav ul {
+    /* Alinha os itens da lista à esquerda no celular */
+    justify-content: flex-start !important; 
+
+    /* LIGA o scroll no celular */
+    overflow-x: auto !important; 
+
+    /* Adiciona padding para não colar na borda esquerda */
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}

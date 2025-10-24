@@ -24,16 +24,29 @@ let precoBase = 0;
 // ===== UTILS (Funções Ajudantes) =====
 const brl = (n) => `R$ ${Number(n).toFixed(2).replace('.', ',')}`;
 
-function updateBodyLock() {
-  const modalOpen =
-    modal.getAttribute("aria-hidden") === "false" ||
-    revisao.getAttribute("aria-hidden") === "false";
-  document.body.classList.toggle("modal-open", modalOpen);
+/**
+ * Trava o scroll do body e gerencia a visibilidade do botão flutuante
+ */
+function updateModalState(isOpening) {
+  document.body.classList.toggle("modal-open", isOpening);
+
+  // CORREÇÃO: Esconde/mostra o botão flutuante
+  if (btnCarrinhoNovo) {
+    // Se estiver abrindo um modal, esconde o botão.
+    if (isOpening) {
+      btnCarrinhoNovo.style.display = 'none';
+    } 
+    // Se estiver fechando, deixa o CSS (classe .hidden) decidir.
+    else {
+      btnCarrinhoNovo.style.display = ''; // Reseta o display inline
+    }
+  }
 }
+
 
 function fecharModal(ref) {
   ref.setAttribute("aria-hidden", "true");
-  updateBodyLock();
+  updateModalState(false); // <-- CORREÇÃO: Chama a função unificada
   if (document.activeElement && document.activeElement.blur) {
     document.activeElement.blur();
   }
@@ -87,7 +100,7 @@ function atualizarBotaoFlutuante() {
       if (sacola.length === 0) return;
       preencherRevisao();
       revisao.setAttribute("aria-hidden", "false");
-      updateBodyLock();
+      updateModalState(true); // <-- CORREÇÃO: Chama a função unificada
     };
   } else {
     btn.classList.add("hidden");
@@ -274,7 +287,7 @@ function abrirModalProduto(el) {
 
   atualizarPrecoModal(); // Calcula o preço inicial
   modal.setAttribute("aria-hidden", "false");
-  updateBodyLock();
+  updateModalState(true); // <-- CORREÇÃO: Chama a função unificada
 }
 
 /**
@@ -594,12 +607,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (revisao.getAttribute("aria-hidden") === "false") preencherRevisao();
   });
 
-  // Abrir Revisão
+  // Abrir Revisão (do botão da sidebar)
   btnRevisar.addEventListener("click", () => {
     if (sacola.length === 0) return alert("Sua sacola está vazia!");
     preencherRevisao();
     revisao.setAttribute("aria-hidden", "false");
-    updateBodyLock();
+    updateModalState(true); // <-- CORREÇÃO: Chama a função unificada
   });
 
   // Remover item do Modal de Revisão
@@ -634,12 +647,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sacola.length === 0) return;
     preencherRevisao();
     revisao.setAttribute("aria-hidden", "false");
-    updateBodyLock();
+    updateModalState(true); // <-- CORREÇÃO: Chama a função unificada
   });
   
-  // (REMOVIDO: Listener antigo e duplicado de 'inputRetirada')
-  // ...
-
   // (UNIFICADO E CORRIGIDO: Lógica de Entrega/Retirada)
   document.querySelectorAll('input[name="tipoEntrega"]').forEach(radio => {
     radio.addEventListener("change", () => {
@@ -651,12 +661,12 @@ document.addEventListener("DOMContentLoaded", () => {
         campoEndereco.style.display = "none";
         infoRetirada.style.display = "block";
         inputTaxa.value = "0.00";
-        inputEndereco.disabled = true; // <-- CORREÇÃO: Desabilita
+        inputEndereco.disabled = true; 
         document.getElementById("resultadoEntrega").innerHTML = "ℹ️ Retirada no local selecionada. Sem taxa de entrega.";
       } else {
         campoEndereco.style.display = "block";
         infoRetirada.style.display = "none";
-        inputEndereco.disabled = false; // <-- CORREÇÃO: Habilita
+        inputEndereco.disabled = false;
       }
       atualizarTotalComTaxa();
       atualizarBotaoWhatsApp();
@@ -664,43 +674,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // (UNIFICADO: Lógica de Pagamento/Troco)
-document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
-  radio.addEventListener("change", () => {
-    const valorInput = document.getElementById("valorTroco");
-
-    if (radio.value === "Dinheiro" && radio.checked) {
-      popupTroco.style.display = "block";
-      popupTroco.setAttribute("aria-hidden", "false"); // <-- Adicionado
-      valorInput.focus(); // <-- Adicionado (para focar automático)
-    } else {
-      popupTroco.style.display = "none";
-      popupTroco.setAttribute("aria-hidden", "true"); // <-- Adicionado
-      resumoTroco.style.display = "none";
-      resumoTroco.textContent = ""; // Limpa o valor
-    }
+  document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+      const valorInput = document.getElementById("valorTroco");
+      
+      if (radio.value === "Dinheiro" && radio.checked) {
+        popupTroco.style.display = "block";
+        popupTroco.setAttribute("aria-hidden", "false");
+        valorInput.focus();
+      } else {
+        popupTroco.style.display = "none";
+        popupTroco.setAttribute("aria-hidden", "true");
+        resumoTroco.style.display = "none";
+        resumoTroco.textContent = ""; // Limpa o valor
+      }
+    });
   });
-});
 
-// Confirmar valor do troco
-btnConfirmarTroco.addEventListener("click", () => {
-  const valorInput = document.getElementById("valorTroco"); // <-- Pega o input
-  const valor = parseFloat(valorInput.value);
-  const totalPedido = parseFloat(revTotal.textContent.replace("R$", "").replace(",", ".").trim());
+  // Confirmar valor do troco
+  btnConfirmarTroco.addEventListener("click", () => {
+    const valorInput = document.getElementById("valorTroco");
+    const valor = parseFloat(valorInput.value);
+    const totalPedido = parseFloat(revTotal.textContent.replace("R$", "").replace(",", ".").trim());
 
-  if (isNaN(valor) || valor <= 0) {
-      return alert("Por favor, insira um valor válido.");
-  }
-  if (valor < totalPedido) {
-      return alert("O valor para troco deve ser maior ou igual ao total do pedido.");
-  }
-
-  resumoTroco.textContent = `Troco para R$ ${valor.toFixed(2).replace('.', ',')}`;
-  resumoTroco.style.display = "block";
-
-  valorInput.blur(); // <-- CORREÇÃO: Tira o foco do input
-  popupTroco.style.display = "none";
-  popupTroco.setAttribute("aria-hidden", "true"); // <-- CORREÇÃO: Atualiza o aria
-});
+    if (isNaN(valor) || valor <= 0) {
+        return alert("Por favor, insira um valor válido.");
+    }
+    if (valor < totalPedido) {
+        return alert("O valor para troco deve ser maior ou igual ao total do pedido.");
+    }
+    
+    resumoTroco.textContent = `Troco para R$ ${valor.toFixed(2).replace('.', ',')}`;
+    resumoTroco.style.display = "block";
+    
+    valorInput.blur();
+    popupTroco.style.display = "none";
+    popupTroco.setAttribute("aria-hidden", "true");
+  });
 
   // Atualiza botão do zap se digitar endereço
   inputEndereco.addEventListener("input", atualizarBotaoWhatsApp);
@@ -713,7 +723,6 @@ btnConfirmarTroco.addEventListener("click", () => {
   atualizarBotaoWhatsApp();
   
   // Força o estado inicial correto ao carregar a página
-  // (Caso o 'checked' padrão do HTML seja 'entrega')
   const tipoInicial = document.querySelector('input[name="tipoEntrega"]:checked')?.value || 'entrega';
   if (tipoInicial === 'entrega') {
       inputEndereco.disabled = false;

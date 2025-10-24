@@ -1386,3 +1386,43 @@ body.modoModerador #btnGerenciarAdicionais {
   background-color: #7b1fa2;
   color: white;
 }
+/* 💵 Pop-up de troco (centralizado dentro do modal, não na tela toda) */
+#popupTroco {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  padding: 25px;
+  color: #fff;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  display: none; /* começa invisível */
+  z-index: 9999;
+}
+
+#popupTroco .popup-content {
+  background: #2a153b;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+#popupTroco input {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  text-align: center;
+  background: #1a0f25;
+  color: #fff;
+}
+
+#popupTroco button {
+  margin-top: 12px;
+  width: 100%;
+}
